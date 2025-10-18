@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IoT Fishpond Water Monitoring System</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-database.js"></script>
+    
+</head>
+
+<body>
+
+    <div id="app" class="app-container">
+        <header class="main-header">
+            <h1 class="header-title">🐟 IoT Fishpond Water Monitoring System</h1>
+            <p class="header-subtitle">Real-Time Dashboard for Temperature and Water Level</p>
+        </header>
+
+        <div class="metrics-grid">
+            <div id="temperature-card" class="data-card temp-card">
+                <div class="card-header">
+                    <h2 class="card-title">Water Temperature</h2>
+                </div>
+                <div id="temp-value" class="temp-value">--.-°C</div>
+                <div id="temp-status" class="status-badge" style="background-color: #6c757d;">Connecting</div>
+                <p style="font-size: 12px; color: #adb5bd; margin-top: 16px;">
+                    Last updated: <span id="temp-timestamp">--:--:--</span>
+                </p>
+            </div>
+
+            <div id="level-card" class="data-card level-card">
+                <div class="card-header">
+                    <h2 class="card-title">Water Level</h2>
+                </div>
+                <div class="level-visualization">
+                    <div class="water-level-bar-container">
+                        <div id="level-bar-fill" class="water-level-fill" style="height: 0%;"></div>
+                    </div>
+                    <div class="level-value-display">
+                        <div id="level-value" class="level-value">--</div>
+                        <span class="level-unit">cm</span>
+                    </div>
+                </div>
+                <div id="level-status" class="status-badge" style="background-color: #6c757d; margin-top: 16px;">Connecting</div>
+            </div>
+        </div>
+
+        <div class="log-panel">
+            <h2 class="log-title">System Activity Log</h2>
+            <div id="activity-log" class="activity-log">
+                <p style="color: #6c757d;">System initialized. Waiting to connect to Firebase...</p>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+
+</body>
+</html>
