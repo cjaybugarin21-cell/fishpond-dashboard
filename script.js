@@ -59,17 +59,33 @@ const levelRef = db.ref('fishpond/level');
 
 tempRef.on('value', (snapshot) => {
     const temp = snapshot.val();
-    if (temp == null) return; 
+    if (temp == null) return;
 
-    
     if (tempValueEl) tempValueEl.textContent = `${temp.toFixed(1)}°C`;
     if (tempTimestampEl) tempTimestampEl.textContent = new Date().toLocaleTimeString('en-US');
 
-    let statusText = 'Optimal', color = 'var(--secondary-green)', logType = 'success';
-    if (temp < 26) { statusText = 'Low'; color = 'var(--primary-blue)'; logType = 'warning'; }
-    else if (temp > 30) { statusText = 'High'; color = 'var(--color-red)'; logType = 'alert'; }
+    let statusText = 'Normal', color = 'var(--secondary-green)', logType = 'success';
 
-    
+    // Updated thresholds based on your description
+    if (temp <= 22) {
+        statusText = 'Low';
+        color = 'var(--primary-blue)';
+        logType = 'warning';
+    } else if (temp >= 35) {
+        statusText = 'High';
+        color = 'var(--color-red)';
+        logType = 'alert';
+    } else if (temp >= 25 && temp <= 33) {
+        statusText = 'Normal';
+        color = 'var(--secondary-green)';
+        logType = 'success';
+    } else {
+        // Between 22–25 or 33–35 → Slightly out of range (optional)
+        statusText = 'Caution';
+        color = 'var(--color-yellow)';
+        logType = 'warning';
+    }
+
     if (tempStatusEl) {
         tempStatusEl.style.backgroundColor = color;
         tempStatusEl.textContent = statusText;
@@ -77,6 +93,7 @@ tempRef.on('value', (snapshot) => {
 
     logActivity(`Temperature: ${temp.toFixed(1)}°C (${statusText})`, logType);
 });
+
 
 
 levelRef.on('value', (snapshot) => {
