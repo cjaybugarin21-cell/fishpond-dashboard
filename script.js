@@ -66,7 +66,7 @@ tempRef.on('value', (snapshot) => {
 
     let statusText = 'Normal', color = 'var(--secondary-green)', logType = 'success';
 
-    // Updated thresholds based on your description
+   
     if (temp <= 22) {
         statusText = 'Low';
         color = 'var(--primary-blue)';
@@ -80,7 +80,7 @@ tempRef.on('value', (snapshot) => {
         color = 'var(--secondary-green)';
         logType = 'success';
     } else {
-        // Between 22–25 or 33–35 → Slightly out of range (optional)
+        
         statusText = 'Caution';
         color = 'var(--color-yellow)';
         logType = 'warning';
