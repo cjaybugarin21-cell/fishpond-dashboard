@@ -111,8 +111,28 @@ levelRef.on('value', (snapshot) => {
     }
 
     let statusText = 'Normal', color = 'var(--secondary-green)', logType = 'success';
-    if (level < 100) { statusText = 'Low'; color = 'var(--color-yellow)'; logType = 'warning'; }
-    else if (level > 140) { statusText = 'High'; color = 'var(--color-red)'; logType = 'alert'; }
+    
+    if (level >= 10 && level <= 25) { 
+        statusText = 'Extreme High';
+        color = 'var(--color-red)';
+        logType = 'alert';
+    }
+    else if (level > 25 && level <= 45) { 
+        statusText = 'High';
+        color = 'var(--color-yellow)';
+        logType = 'warning';
+    }
+    else if (level >= 55 && level <= 65) { 
+        statusText = 'Normal';
+        color = 'var(--secondary-green)';
+        logType = 'success';
+    }
+    else if (level >= 75) { 
+        statusText = 'Low';
+        color = 'var(--primary-blue)';
+        logType = 'warning';
+    }
+
 
     
     if (levelStatusEl) {
