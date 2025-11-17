@@ -112,7 +112,7 @@ levelRef.on('value', (snapshot) => {
 
     let statusText = 'Normal', color = 'var(--secondary-green)', logType = 'success';
     
-    if (level >= 10 && level <= 25) { 
+    if (level >= 1 && level <= 25) { 
         statusText = 'Extreme High';
         color = 'var(--color-red)';
         logType = 'alert';
