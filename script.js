@@ -98,43 +98,46 @@ tempRef.on('value', (snapshot) => {
 
 levelRef.on('value', (snapshot) => {
     const level = snapshot.val();
-    if (level == null) return; 
+    if (level == null) return;
 
     const roundedLevel = Math.round(level);
-    
-    
+
+    // Display numeric value
     if (levelValueEl) levelValueEl.textContent = roundedLevel;
-    
-    
+
+    // Inverted water bar height
     if (levelBarFillEl) {
-        levelBarFillEl.style.height = `${Math.min(100, (roundedLevel / MAX_LEVEL_CM) * 100)}%`;
+        const percentage = 100 - Math.min(100, (roundedLevel / MAX_LEVEL_CM) * 100);
+        levelBarFillEl.style.height = `${percentage}%`;
     }
 
-    let statusText = 'Normal', color = 'var(--secondary-green)', logType = 'success';
-    
-    if (level >= 1 && level <= 25) { 
+    let statusText = 'Caution';
+    let color = 'var(--color-yellow)';
+    let logType = 'warning';
+
+    // --- Correct Level Ranges ---
+    if (roundedLevel >= 1 && roundedLevel <= 25) {
         statusText = 'Extreme High';
         color = 'var(--color-red)';
         logType = 'alert';
     }
-    else if (level > 25 && level <= 45) { 
+    else if (roundedLevel > 25 && roundedLevel <= 45) {
         statusText = 'High';
         color = 'var(--color-yellow)';
         logType = 'warning';
     }
-    else if (level >= 55 && level <= 65) { 
+    else if (roundedLevel >= 50 && roundedLevel <= 65) {
         statusText = 'Normal';
         color = 'var(--secondary-green)';
         logType = 'success';
     }
-    else if (level >= 75) { 
+    else if (roundedLevel >= 75) {
         statusText = 'Low';
         color = 'var(--primary-blue)';
         logType = 'warning';
     }
 
-
-    
+    // Update status badge
     if (levelStatusEl) {
         levelStatusEl.style.backgroundColor = color;
         levelStatusEl.textContent = statusText;
@@ -142,6 +145,7 @@ levelRef.on('value', (snapshot) => {
 
     logActivity(`Water Level: ${roundedLevel} cm (${statusText})`, logType);
 });
+
 
 
 logActivity('Dashboard initialized. Waiting for Firebase data...', 'info');
